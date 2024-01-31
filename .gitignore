@@ -2,6 +2,7 @@
 venv/
 env/
 .venv/
+prism_venv/
 
 # Ignore Node.js modules
 node_modules/
