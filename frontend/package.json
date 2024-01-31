@@ -13,7 +13,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-easy-panzoom": "^0.4.4",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.1",
     "react-zoom-pan-pinch": "^3.4.0"
   },
   "browserslist": {
