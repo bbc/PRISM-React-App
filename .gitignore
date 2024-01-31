@@ -1,0 +1,7 @@
+# Ignore Python virtual environments
+venv/
+env/
+.venv/
+
+# Ignore Node.js modules
+node_modules/
