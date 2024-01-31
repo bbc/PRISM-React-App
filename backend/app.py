@@ -14,6 +14,34 @@ def generate_scribbles(width, height):
     scribbles = [[random.randint(0, 1) for _ in range(width)] for _ in range(height)]
     return scribbles
 
+@app.route('/send-scribbles', methods=['POST'])
+def send_scribbles():
+    data = request.json
+    image_id = data['image_id']
+    scribbles_data = data['scribbles']
+
+    # Load the image using the image_id
+    image_path = 'images/' + image_id + ".jpg"
+    if not image_path:
+        return jsonify({'error': 'Image not found'}), 404
+
+    img = Image.open(image_path)
+
+    # Apply the scribbles to the image
+    # This part depends on how you want to process the image with the scribbles
+
+    # Save the processed image to a BytesIO object
+    processed_img_bytes = io.BytesIO()
+    img.save(processed_img_bytes, format='JPEG')
+    processed_img_bytes.seek(0)
+
+    # Encode the processed image to base64
+    processed_image_data = base64.b64encode(processed_img_bytes.getvalue()).decode()
+
+    return jsonify({'processedImage': processed_image_data})
+
+
+
 @app.route('/process-image', methods=['POST'])
 def process_image():
     if 'file' not in request.files:
@@ -48,7 +76,8 @@ def process_image():
     # Return a clean JSON response with base64 encoded image data and scribbles
     return jsonify({
         'image': img_base64,
-        'scribbles': scribbles  # Send the serialized scribbles
+        'scribbles': scribbles,  # Send the serialized scribbles
+        'image_id': image_id
     })
 # Function to generate a unique image identifier
 def generate_unique_id():
@@ -70,5 +99,6 @@ def save_image_to_location(image_id, image_data):
     # Save the image to the specified file path
     with open(file_path, 'wb') as file:
         file.write(image_data)
+
 if __name__ == '__main__':
     app.run(debug=False)  # Turn off debug mode for production

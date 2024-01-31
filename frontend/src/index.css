@@ -1,105 +1,136 @@
+.App {
+  text-align: center; /* Center text for the entire app */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  height: 100vh; /* Full viewport height */
+}
+
+.header {
+  width: 100%; /* Full width */
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  margin-top: 20px; /* Adjust as needed */
+}
+
+h1 {
+  margin: 0; /* Remove default margin */
+}
+
 /* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif; /* Consistent font-family */
-  }
-  
-  /* General Styles */
-  body {
-    background-color: #f5f5f5; /* Light grey background */
-    color: #333; /* Darker text for better readability */
-  }
-  
-  input[type="file"] {
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    margin-right: 10px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
-  }
-  
-  /* Container for Image and Canvas */
-  .image-canvas-container {
-    position: relative;
-    width: 90%;
-    height: auto;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for container */
-  }
-  
-  /* Style for the Image */
-  .image-preview {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-  }
-  
-  /* Style for the Canvas */
-  .canvas-element {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-  }
-  
-  /* Style for the Brush Size Selector */
-  .brush-size-selector {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-  }
-  
-  .brush-size-selector label {
-    font-size: 14px;
-    margin-right: 10px;
-  }
-  
-  .brush-size-selector input[type="range"] {
-    width: 200px;
-    margin-left: 10px;
-  }
-  
-  /* Style for the Draw Cursor */
-  .draw-cursor {
-    position: fixed;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
-  }
-  
-  /* Style for the image canvas */
-  .image-canvas {
-    position: absolute;
-    z-index: 2;
-  }
-  
-  /* Style for the scribbles canvas */
-  .scribbles-canvas {
-    position: absolute;
-    z-index: 3;
-    cursor: none;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif; /* Switched to Roboto for a modern look */
+}
+
+/* General Styles */
+body {
+  background-color: #ffffff; /* Pure white background */
+  color: #333333; /* Slightly softer black for text */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url('data:image/svg+xml,%3Csvg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23f0f0f0" fill-opacity="0.4"%3E%3Cpath d="M25 0l25 25-25 25L0 25z" fill-rule="evenodd"/%3E%3C/g%3E%3C/svg%3E');
+  /* Subtle background pattern */
+}
+
+/* Style for top controls area (buttons, input) */
+.top-controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+  background-color: #2c3e50; /* Dark blue for control panel */
+  color: #fff;
+}
+
+input[type="file"] {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db; /* Bright blue for buttons */
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9; /* Darker shade on hover */
+}
+
+/* Container for Image and Canvas */
+.image-canvas-container {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+  margin: 0 auto;
+  height: 80vh; /* Adjusted height for better layout */
+  padding: 10px;
+}
+
+.pan-zoom-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+/* Style for the Brush Size Selector */
+.brush-size-selector {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.brush-size-selector label {
+  font-size: 14px;
+  margin-right: 10px;
+  color: #fff;
+}
+
+.brush-size-selector input[type="range"] {
+  width: 200px;
+  margin-left: 10px;
+}
+
+/* Style for the Draw Cursor */
+.draw-cursor {
+  position: fixed;
+  border: 1px solid #ffffff;
+  background-color: rgba(255, 255, 255, 0.371);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+}
+
+/* Style for the image canvas */
+.image-canvas {
+  position: absolute;
+  z-index: 2;
+}
+
+/* Style for the scribbles canvas */
+.scribbles-canvas {
+  position: absolute;
+  z-index: 3;
+  cursor: none; /* More precise cursor for drawing */
+}
